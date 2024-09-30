@@ -139,3 +139,27 @@ To analyze correlations between numerical columns we create a function called co
 
 ![Correlation Analysis](https://github.com/user-attachments/assets/335d6d40-5e68-444e-9ce8-d22c60380aca)
 
+# Pipeline
+
+"This pipeline combines time-based and user-based averages into a single process for efficient rating calculation."
+
+```
+df = load_dataset(path_dataset)
+print(20*"#", "General Information About To Dataset")
+check_df(df, head)
+print(20*"#", "Analysis of Categorical and Numerical Variables")
+cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(df, cat_th=cat_th, car_th=car_th, report=report)
+cat_summary_df(df)
+num_summary_df(df)
+print(20*"#", "Target Analysis", 20*"#")
+if len(num_cols)>1:
+    print(20*"#", "Target Analysis - Numerical", 20*"#")
+    target_summary_with_num_df(df, target)
+if len(cat_cols)>1:
+    print(20*"#", "Target Analysis - Categorical", 20*"#")
+    target_summary_with_cat_df(df, target)
+print(20*"#", "Correlation Analysis", 20*"#")
+drop_list = high_corralated_cols(df, corr_th=corr_th, plot=plot, remove=remove)
+print(20*"#", "Plot All Numerical Variables", 20*"#")
+plot_num_summary(df)
+```
